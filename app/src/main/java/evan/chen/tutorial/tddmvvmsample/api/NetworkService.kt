@@ -1,0 +1,43 @@
+package evan.chen.tutorial.tddmvvmsample.api
+
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
+
+object ApiConfig {
+
+    const val WEB_HOST = "https://www.google.com.tw"
+
+    const val TIME_OUT_CONNECT = 30
+    const val TIME_OUT_READ = 30
+    const val TIME_OUT_WRITE = 30
+
+}
+
+class NetworkService(interceptor: Interceptor) {
+
+    var serviceAPI: ServiceApi
+
+    init {
+
+        val client = OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .connectTimeout(ApiConfig.TIME_OUT_CONNECT.toLong(), TimeUnit.SECONDS)
+                .readTimeout(ApiConfig.TIME_OUT_READ.toLong(), TimeUnit.SECONDS)
+                .writeTimeout(ApiConfig.TIME_OUT_WRITE.toLong(), TimeUnit.SECONDS)
+                .build()
+
+        val retrofit = Retrofit.Builder()
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(ApiConfig.WEB_HOST)
+                .client(client)
+                .build()
+
+        serviceAPI = retrofit.create(ServiceApi::class.java)
+
+    }
+}
