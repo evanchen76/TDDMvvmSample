@@ -15,6 +15,7 @@ object ApiConfig {
     const val TIME_OUT_READ = 30
     const val TIME_OUT_WRITE = 30
 
+    const val productUrl = "https://firebasestorage.googleapis.com/v0/b/phoneauth-e70bb.appspot.com/o/product.json?alt=media&token=c051df05-399a-42af-b60f-b5430643d78e"
 }
 
 class NetworkService(interceptor: Interceptor) {
