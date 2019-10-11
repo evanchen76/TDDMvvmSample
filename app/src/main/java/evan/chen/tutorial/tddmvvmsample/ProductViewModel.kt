@@ -2,7 +2,6 @@ package evan.chen.tutorial.tddmvvmsample
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import evan.chen.tutorial.mvvmtddsample.SchedulerProvider
 
 class ProductViewModel(private val productRepository: IProductRepository) :
     ViewModel() {
