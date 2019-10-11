@@ -10,7 +10,10 @@ interface IProductRepository {
 
 class ProductRepository(private val serviceApi: ServiceApi) : IProductRepository {
     override fun getProduct(): Single<ProductResponse> {
-        TODO("not implemented")
+        return serviceApi.getProduct()
+            .map {
+                it.body()
+            }
     }
 
     companion object {
